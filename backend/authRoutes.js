@@ -19,9 +19,12 @@ module.exports = app => {
         }
     );
 
-    app.get('/api/logout', (req, res) => {
-        req.logout();
-        res.redirect('/');
+    app.get('/api/logout', (req, res, next) => {
+        // As of passport@0.6.0, req.logout() is now an asynchronous function.
+        req.logout(function(err) {
+            if (err) { return next(err); }
+            res.redirect('/');
+        });
     });
 
     app.get('/api/current_user', (req, res) => {

@@ -3,7 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const notesBtn = document.getElementById('notes-btn');
     const flashcardsBtn = document.getElementById('flashcards-btn');
     const questionBankBtn = document.getElementById('question-bank-btn');
+    const athenaBtn = document.getElementById('athena-btn');
     const authContainer = document.getElementById('auth-container');
+    const loginModalOverlay = document.getElementById('login-modal-overlay');
 
     let fullData = {};
     let currentUser = null;
@@ -13,7 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
         midnight: { name: 'Midnight Blue', icon: '🌌' },
         twilight: { name: 'Lo-fi Twilight', icon: '💜' },
         forest: { name: 'Forest Night', icon: '🌲' },
-        graphite: { name: 'Graphite', icon: '✏️' }
+        graphite: { name: 'Graphite', icon: '✏️' },
+        onyx: { name: 'Onyx Dark', icon: '🖤' }
     };
 
     function buildThemeSelector() {
@@ -62,16 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(user => {
             currentUser = user;
-            renderHeader();
-            // Initial view is now profile if logged in, otherwise notes
             if (currentUser) {
-                // Find the profile button if it exists and add a click listener
+                renderHeader();
                 const profileBtn = document.getElementById('profile-btn');
                 if (profileBtn) {
                     profileBtn.addEventListener('click', () => switchMode('profile', buildProfileView));
                 }
                 switchMode('notes', buildNotesView);
             } else {
+                loginModalOverlay.classList.remove('hidden');
                 switchMode('notes', buildNotesView);
             }
         })
@@ -87,21 +89,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button id="profile-btn" class="mode-btn">Profile</button>
                 <a href="/api/logout" class="mode-btn">Logout</a>
             `;
-        } else if (authContainer) {
-            authContainer.innerHTML = `<a href="/auth/google" class="mode-btn">Login with Google</a>`;
         }
     }
 
     notesBtn.addEventListener('click', () => switchMode('notes', buildNotesView));
     flashcardsBtn.addEventListener('click', () => switchMode('flashcards', buildFlashcardsView));
     questionBankBtn.addEventListener('click', () => switchMode('question-bank', buildQuestionBankView));
+    athenaBtn.addEventListener('click', () => switchMode('athena', buildAthenaView));
 
     function switchMode(mode, builderFunction) {
         // Update active button
         document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
         
-        // Use the new button ID for question-bank
-        const buttonId = ['notes', 'flashcards', 'question-bank', 'profile'].includes(mode) ? `${mode}-btn` : null;
+        const buttonId = ['notes', 'flashcards', 'question-bank', 'profile', 'athena'].includes(mode) ? `${mode}-btn` : null;
         if (buttonId && document.getElementById(buttonId)) {
         document.getElementById(buttonId).classList.add('active');
         }
@@ -260,12 +260,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const subjectData = semester[subjectKey];
 
-                const flashcardGrid = document.createElement('div');
-                flashcardGrid.className = 'flashcard-grid';
+                // Check if flashcards exist at the topic level (e.g., inside "Unit 1")
+                const topicsWithFlashcards = Object.values(subjectData).filter(topic => topic && Array.isArray(topic.flashcards));
 
-                for (const topicKey in subjectData) {
-                    if (subjectData[topicKey].flashcards) {
-                        subjectData[topicKey].flashcards.forEach(card => {
+                if (topicsWithFlashcards.length > 0) {
+                    const flashcardGrid = document.createElement('div');
+                    flashcardGrid.className = 'flashcard-grid';
+
+                    // Iterate through each topic that has flashcards
+                    for (const topic of topicsWithFlashcards) {
+                        topic.flashcards.forEach(card => {
                             const flashcard = document.createElement('div');
                             flashcard.className = 'flashcard';
                             flashcard.innerHTML = `
@@ -284,8 +288,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             flashcardGrid.appendChild(flashcard);
                         });
                     }
+                    subjectContent.appendChild(flashcardGrid);
+                } else {
+                    subjectContent.innerHTML = '<p>No flashcards available for this subject yet.</p>';
                 }
-                subjectContent.appendChild(flashcardGrid);
                 subjectContentsContainer.appendChild(subjectContent);
 
                 if (index === 0) {
@@ -329,30 +335,41 @@ document.addEventListener('DOMContentLoaded', () => {
             let firstQbIndex = -1;
 
             subjects.forEach((subjectKey, index) => {
+                const subjectId = `${semKey}-${subjectKey.replace(/\s+/g, '-')}-qb`;
                 const subjectData = semester[subjectKey];
                 const subjectQuestionBank = subjectData.questionBank || [];
 
-                // Only create a tab if there's a question bank for this subject
                 if (subjectQuestionBank.length > 0) {
                     if (firstQbIndex === -1) {
                         firstQbIndex = index;
                     }
 
-                    // Create Tab Button
                     const tabButton = document.createElement('button');
                     tabButton.className = 'subject-tab-btn';
                     tabButton.textContent = subjectKey;
-                    tabButton.dataset.target = `${semKey}-${subjectKey.replace(/\s+/g, '-')}-qb`;
+                    tabButton.dataset.target = subjectId;
                     subjectTabsContainer.appendChild(tabButton);
 
-                    // Create Content Pane
                     const subjectContent = document.createElement('div');
                     subjectContent.className = 'subject-content';
-                    subjectContent.id = `${semKey}-${subjectKey.replace(/\s+/g, '-')}-qb`;
+                    subjectContent.id = subjectId;
 
-                    subjectContent.innerHTML = `
+                    // Build the list of all questions
+                    let allQuestionsHtml = '<div class="all-questions-list">';
+                    subjectQuestionBank.forEach((q, i) => {
+                        allQuestionsHtml += `
+                            <div class="all-questions-item">
+                                <p><strong>Q${i + 1}:</strong> ${q.question}</p>
+                                <span><strong>Answer:</strong> ${q.options[q.correct]}</span>
+                            </div>
+                        `;
+                    });
+                    allQuestionsHtml += '</div>';
+
+                    // Build the quiz setup UI
+                    const quizSetupHtml = `
                         <div class="qb-setup-container">
-                            <h2>${subjectKey} Question Bank</h2>
+                            <h3>Take a Quiz</h3>
                             <div class="qb-setup-form">
                                 <div>
                                     <label for="num-questions-${index}">Number of Questions (1-${subjectQuestionBank.length}):</label>
@@ -365,16 +382,46 @@ document.addEventListener('DOMContentLoaded', () => {
                                         <label><input type="radio" name="test-mode-${index}" value="timed"> Timed (1 min per question)</label>
                                     </div>
                                 </div>
-                                <button id="start-test-btn-${index}" data-subject-key="${subjectKey}">Start Test</button>
+                                <button class="start-test-btn" data-subject-key="${subjectKey}" data-sem-key="${semKey}" data-index="${index}">Start Test</button>
                             </div>
                         </div>
                     `;
+
+                    // Create sub-tabs and panes
+                    subjectContent.innerHTML = `
+                        <h2>${subjectKey}</h2>
+                        <div class="topic-tabs">
+                            <button class="topic-tab active" data-target="${subjectId}-all-questions">All Questions</button>
+                            <button class="topic-tab" data-target="${subjectId}-take-quiz">Take a Quiz</button>
+                        </div>
+                        <div class="topic-contents">
+                            <div id="${subjectId}-all-questions" class="topic-pane active">
+                                ${allQuestionsHtml}
+                            </div>
+                            <div id="${subjectId}-take-quiz" class="topic-pane">
+                                ${quizSetupHtml}
+                            </div>
+                        </div>
+                    `;
+
                     subjectContentsContainer.appendChild(subjectContent);
 
                     if (index === firstQbIndex) {
                         tabButton.classList.add('active');
                         subjectContent.classList.add('active');
                     }
+                }
+            });
+
+            // Add event listener for the new sub-tabs (All Questions / Take a Quiz)
+            subjectContentsContainer.addEventListener('click', (e) => {
+                if (e.target.matches('.topic-tab')) {
+                    const parentContent = e.target.closest('.subject-content');
+                    parentContent.querySelectorAll('.topic-tab').forEach(btn => btn.classList.remove('active'));
+                    parentContent.querySelectorAll('.topic-pane').forEach(content => content.classList.remove('active'));
+
+                    e.target.classList.add('active');
+                    document.getElementById(e.target.dataset.target).classList.add('active');
                 }
             });
 
@@ -392,12 +439,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // Add event listeners for start test buttons
-            subjectContentsContainer.querySelectorAll('[id^="start-test-btn-"]').forEach(button => {
+            subjectContentsContainer.querySelectorAll('.start-test-btn').forEach(button => {
                 button.addEventListener('click', (e) => {
                     const subjectKey = e.target.dataset.subjectKey;
-                    const subjectData = semester[subjectKey];
+                    const semKey = e.target.dataset.semKey;
+                    const subjectData = data[semKey][subjectKey];
                     const subjectQuestionBank = subjectData.questionBank || [];
-                    const index = e.target.id.split('-').pop(); // Get the index from the button ID
+                    const index = e.target.dataset.index;
 
                     const numQuestions = parseInt(document.getElementById(`num-questions-${index}`).value);
                     const testMode = document.querySelector(`input[name="test-mode-${index}"]:checked`).value;
@@ -506,11 +554,52 @@ document.addEventListener('DOMContentLoaded', () => {
             renderQuestion(currentQuestionIndex + direction);
         }
 
+        function buildReviewView(questions, answers) {
+            contentContainer.innerHTML = `
+                <div class="review-container">
+                    <h2>Review Your Answers</h2>
+                </div>
+            `;
+            const reviewContainer = contentContainer.querySelector('.review-container');
+
+            questions.forEach((q, i) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'review-question';
+
+                let optionsHtml = '';
+                q.options.forEach((option, optIndex) => {
+                    let classes = '';
+                    if (optIndex === q.correct) {
+                        classes += ' correct-answer';
+                    }
+                    if (optIndex === answers[i] && answers[i] !== q.correct) {
+                        classes += ' incorrect-answer';
+                    }
+
+                    optionsHtml += `<label class="${classes.trim()}">${option}</label>`;
+                });
+
+                questionDiv.innerHTML = `
+                    <p><strong>Q${i + 1}:</strong> ${q.question}</p>
+                    <div class="review-options">${optionsHtml}</div>
+                `;
+                reviewContainer.appendChild(questionDiv);
+            });
+
+            const backButton = document.createElement('button');
+            backButton.id = 'back-to-qb-btn';
+            backButton.className = 'qb-nav-btn';
+            backButton.textContent = 'Back to Test Selection';
+            backButton.style.marginTop = '20px';
+            reviewContainer.appendChild(backButton);
+            backButton.addEventListener('click', () => buildQuestionBankView(fullData));
+        }
+
         function showResults() {
             clearInterval(testTimer);
             let score = 0;
             testQuestions.forEach((q, i) => {
-                if (userAnswers[i] === q.correct) {
+                if (userAnswers[i] === q.correct) { // Strict equality is fine here
                     score++;
                 }
             });
@@ -520,10 +609,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h2>Test Complete!</h2>
                     <p>Your Score: <strong>${score} out of ${numQuestions}</strong></p>
                     <p>Percentage: <strong>${((score / numQuestions) * 100).toFixed(2)}%</strong></p>
-                    <button id="restart-btn" class="qb-nav-btn">Take Another Test</button>
+                    <div class="qb-results-navigation">
+                        <button id="review-btn" class="qb-nav-btn">Review Answers</button>
+                        <button id="restart-btn" class="qb-nav-btn">Take Another Test</button>
+                    </div>
                 </div>
             `;
             document.getElementById('restart-btn').addEventListener('click', () => buildQuestionBankView(fullData));
+            document.getElementById('review-btn').addEventListener('click', () => buildReviewView(testQuestions, userAnswers));
         }
 
         if (testMode === 'timed') {
@@ -596,6 +689,75 @@ document.addEventListener('DOMContentLoaded', () => {
             currentUser = await response.json(); // Update local user object
             feedbackEl.textContent = 'Profile saved successfully!';
             setTimeout(() => feedbackEl.textContent = '', 3000);
+        });
+    }
+
+    function buildAthenaView() {
+        contentContainer.innerHTML = `
+            <div class="athena-container">
+                <h2>Ask Athena ✨</h2>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="chat-message bot">
+                        ${marked.parse(`Hello! I'm Athena, your AI study assistant. Ask me anything about your subjects!
+
+<small><i>(This is a conceptual UI. A backend integration with an AI API is required for full functionality.)</i></small>`)}
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Explain KVL in simple terms...">
+                    <button id="send-btn">Send</button>
+                </div>
+            </div>
+        `;
+
+        const sendBtn = document.getElementById('send-btn');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+
+        const handleSend = async () => {
+            const messageText = chatInput.value.trim();
+            if (messageText) {
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'chat-message user';
+                userMessage.textContent = messageText;
+                chatMessages.appendChild(userMessage);
+                chatInput.value = '';
+
+                // Show a temporary "thinking" message
+                const thinkingMessage = document.createElement('div');
+                thinkingMessage.className = 'chat-message bot';
+                thinkingMessage.textContent = 'Athena is thinking...';
+                chatMessages.appendChild(thinkingMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                try {
+                    const response = await fetch('/api/athena/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ prompt: messageText })
+                    });
+
+                    if (!response.ok) {
+                        const errData = await response.json();
+                        throw new Error(errData.error || 'Network response was not ok');
+                    }
+
+                    const data = await response.json();
+                    // Replace "thinking" message with the actual response
+                    thinkingMessage.innerHTML = marked.parse(data.text);
+                } catch (error) {
+                    thinkingMessage.textContent = `Sorry, I encountered an error: ${error.message}`;
+                    console.error('Fetch error:', error);
+                }
+
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        };
+
+        sendBtn.addEventListener('click', handleSend);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSend();
         });
     }
 });

@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0KOVEM1LiJSOTCbM8KGhZKbSSK3AxVucBIiQEC6oUFD24rL2iM/dI" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -17,9 +19,20 @@
             <button id="notes-btn" class="mode-btn active">Notes</button>
             <button id="flashcards-btn" class="mode-btn">Flashcards</button>
             <button id="question-bank-btn" class="mode-btn">Question Bank</button>
+            <button id="athena-btn" class="mode-btn">Athena ✨</button>
         </div>
     </header>
     <main id="content-container" class="notes-mode"></main>
+
+    <div id="login-modal-overlay" class="modal-overlay hidden">
+        <div id="login-modal" class="modal">
+            <h2>Welcome to DTU Study Hub!</h2>
+            <p>Log in to track your progress and access all features.</p>
+            <a href="/auth/google" class="google-login-btn">Login with Google</a>
+        </div>
+    </div>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

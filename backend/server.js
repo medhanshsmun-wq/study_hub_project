@@ -39,7 +39,8 @@ const frontendPath = path.join(__dirname, '..', 'frontend');
 app.use(express.static(frontendPath));
 
 // API Routes
-require(path.join(__dirname, 'authRoutes.js'))(app);
+require(path.join(__dirname, 'authRoutes.js'))(app); // This was correct, but the athena one was not. Let's ensure consistency.
+require(path.join(__dirname, 'athenaRoutes.js'))(app);
 app.get('/api/data', (req, res) => {
     res.json(studyData);
 });

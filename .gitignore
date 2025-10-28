@@ -1,0 +1,27 @@
+# Dependencies
+/backend/node_modules
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+backend/.env
+
+# Production
+/build
+dist/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# IDE / OS specific
+.vscode/
+.idea/
+
+# Secrets - DO NOT COMMIT
+*.txt
+*.log

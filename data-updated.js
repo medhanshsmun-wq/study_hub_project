@@ -625,63 +625,311 @@ module.exports.studyData = {
             , "questionBank": []
         },
         "Engineering Chemistry (AC 101)": {
-            "Polymers": {
-                notes: [
-                    {
-                        title: "🧬 Basic Concepts",
-                        points: [
-                            "<strong>Polymer:</strong> Large molecules formed by joining repeating structural units (monomers).",
-                            "<strong>Polymerization:</strong> Process of forming polymers from monomers.",
-                            "<strong>Homopolymer:</strong> Made from one type of monomer (e.g., Polythene).",
-                            "<strong>Copolymer:</strong> Made from two or more types of monomers (e.g., Nylon 6,6).",
-                        ]
-                    },
-                    {
-                        title: "🔥 Thermoplastics vs. Thermosetting",
-                        points: [
-                            "<strong>Thermoplastics:</strong> Can be repeatedly softened by heating and hardened by cooling. Recyclable. (e.g., PVC, Polythene).",
-                            "<strong>Thermosetting Plastics:</strong> Become permanently hard on heating. Cannot be remoulded. (e.g., Bakelite).",
-                        ]
-                    },
-                    {
-                        title: "🧪 Polymerization Types",
-                        points: [
-                            "<strong>Addition Polymerization:</strong> Monomers add to one another in such a way that the polymer contains all the atoms of the monomer unit. Occurs in monomers with double or triple bonds.",
-                            "<strong>Condensation Polymerization:</strong> Involves a reaction between two bi-functional or tri-functional monomer molecules with the elimination of a small molecule like water, HCl, or ammonia."
-                        ]
-                    }
-                ],
-                flashcards: [
-                    { question: "What is a homopolymer?", answer: "A polymer made from only one type of monomer unit (e.g., Polythene from ethylene)." },
-                    { question: "What is the key difference between thermoplastics and thermosetting plastics?", answer: "Thermoplastics can be remelted and remoulded, while thermosetting plastics cannot." },
-                    { question: "What is vulcanization?", answer: "A process of heating natural rubber with sulphur to improve its properties like strength and elasticity by forming cross-links." },
-                    { question: "Which type of polymerization involves the elimination of a small molecule like water?", answer: "Condensation Polymerization." }
-                ],
-                quiz: [
-                    { question: "Which of the following is a thermosetting plastic?", options: ["PVC", "Polythene", "Bakelite", "Nylon"], correct: 2 },
-                    { question: "Natural rubber is a polymer of which monomer?", options: ["Styrene", "Isoprene", "Ethylene", "Propylene"], correct: 1 }
-                ]
-            },
-            "Water Technology": {
+            "Unit 1: Water Technology": {
                 notes: [
                     {
                         title: "💧 Hardness of Water",
                         points: [
-                            "Hardness is the property of water that prevents lathering with soap, caused by dissolved salts of Calcium and Magnesium.",
-                            "<strong>Temporary Hardness:</strong> Caused by bicarbonates of Ca and Mg. Can be removed by boiling.",
-                            "<strong>Permanent Hardness:</strong> Caused by chlorides and sulfates of Ca and Mg. Cannot be removed by boiling."
+                            "<strong>Definition:</strong> Hardness is the property of water that prevents the formation of lather with soap. It is caused by the presence of dissolved salts of multivalent metallic ions, primarily Calcium (Ca²⁺) and Magnesium (Mg²⁺).",
+                            "<strong>Types of Hardness:</strong><br>1. <strong>Temporary Hardness:</strong> Caused by the presence of bicarbonates of Calcium and Magnesium [Ca(HCO₃)₂ and Mg(HCO₃)₂]. It can be removed by boiling.<br>2. <strong>Permanent Hardness:</strong> Caused by the presence of chlorides and sulfates of Calcium and Magnesium (CaCl₂, MgCl₂, CaSO₄, MgSO₄). It cannot be removed by boiling.",
+                            "<strong>Total Hardness:</strong> The sum of temporary and permanent hardness.",
+                            "<strong>Units of Hardness:</strong><br>- <strong>ppm (parts per million):</strong> Milligrams of CaCO₃ equivalent per liter of water.<br>- <strong>mg/L:</strong> Same as ppm.<br>- <strong>Degree Clark (°Clark):</strong> Grains of CaCO₃ equivalent per gallon of water (1 °Clark = 14.3 ppm).<br>- <strong>Degree French (°fH):</strong> Parts of CaCO₃ equivalent per 10⁵ parts of water (1 °fH = 10 ppm)."
+                        ]
+                    },
+                    {
+                        title: "🧪 Titrimetric Analysis of Hardness (EDTA Method)",
+                        points: [
+                            "<strong>Principle:</strong> Complexometric titration where EDTA (Ethylenediaminetetraacetic acid), a strong complexing agent, is used to titrate against Ca²⁺ and Mg²⁺ ions.",
+                            "<strong>Indicator:</strong> Eriochrome Black-T (EBT) is used. It forms a wine-red complex with Ca²⁺/Mg²⁺ ions at a pH of around 10.",
+                            "<strong>Procedure:</strong><br>1. A water sample is buffered to a pH of ~10 using an ammonia-ammonium chloride buffer.<br>2. A few drops of EBT indicator are added, turning the solution wine-red.<br>3. The solution is titrated against a standard EDTA solution.<br>4. At the endpoint, EDTA displaces EBT from the metal-EBT complex. The free EBT indicator imparts a steel-blue color to the solution.",
+                            "<strong>Reaction:</strong> [M-EBT] (Wine-Red) + EDTA → [M-EDTA] (Stable Complex) + EBT (Blue)"
+                        ]
+                    },
+                    {
+                        title: "📊 Alkalinity of Water",
+                        points: [
+                            "<strong>Definition:</strong> The capacity of water to neutralize acids. It's primarily due to the presence of hydroxide (OH⁻), carbonate (CO₃²⁻), and bicarbonate (HCO₃⁻) ions.",
+                            "<strong>Titrimetric Analysis:</strong> Determined by titrating the water sample against a standard acid (like H₂SO₄) using two indicators: Phenolphthalein (P) and Methyl Orange (M).",
+                            "<strong>Phenolphthalein Alkalinity (P):</strong> Measures total hydroxide and half of the carbonate alkalinity. Endpoint is the disappearance of pink color (pH ~8.3).",
+                            "<strong>Methyl Orange Alkalinity (M) / Total Alkalinity:</strong> Measures the total alkalinity (hydroxide + carbonate + bicarbonate). Endpoint is the color change from yellow to pink/red (pH ~4.5).",
+                            "<strong>Interpreting Results:</strong><br>- P = 0: Only HCO₃⁻ is present.<br>- M = P: Only OH⁻ is present.<br>- M = 2P: Only CO₃²⁻ is present.<br>- M > 2P: OH⁻ and CO₃²⁻ are present.<br>- M < 2P: CO₃²⁻ and HCO₃⁻ are present."
+                        ]
+                    },
+                    {
+                        title: "🔬 Indicators",
+                        points: [
+                            "<strong>Definition:</strong> Indicators are organic substances that change color in response to a change in the chemical conditions, typically pH.",
+                            "<strong>Theories of Indicators:</strong><br>1. <strong>Ostwald's Theory:</strong> An acid-base indicator is a weak organic acid or base. The undissociated form has a different color than its dissociated (ionized) form.<br>2. <strong>Quinonoid Theory:</strong> The color change is due to a structural change (tautomerism) between two forms, a benzenoid form (colorless/light) and a quinonoid form (colored).",
+                            "<strong>Applications:</strong> Used to determine the endpoint of titrations (acid-base, complexometric, redox), test pH of solutions (litmus paper), and in medical diagnostics."
+                        ]
+                    },
+                    {
+                        title: "💨 Dissolved Oxygen (DO) - Winkler's Method",
+                        points: [
+                            "<strong>Significance:</strong> DO is a crucial indicator of water quality. Low DO levels indicate pollution.",
+                            "<strong>Principle (Winkler's Method):</strong> A redox titration method. DO in the sample oxidizes Mn(II) to Mn(IV) in an alkaline medium, forming a precipitate. This is then acidified, which liberates iodine (I₂) in proportion to the original DO. The liberated iodine is then titrated against a standard sodium thiosulfate solution using starch as an indicator.",
+                            "<strong>Endpoint:</strong> Disappearance of the blue starch-iodine complex color."
+                        ]
+                    },
+                    {
+                        title: "🔥 Boiler Feed Water & Troubles",
+                        points: [
+                            "<strong>Boiler Feed Water:</strong> Water used to generate steam in boilers. It must be treated to meet strict quality requirements to prevent boiler problems.",
+                            "<strong>Boiler Troubles:</strong><br>- <strong>Scale & Sludge:</strong> Scales are hard, adherent deposits (e.g., CaSO₄) formed on inner surfaces, which are poor thermal conductors. Sludge is a soft, loose precipitate (e.g., MgCO₃).<br>- <strong>Priming & Foaming:</strong> Priming is the carryover of water droplets with steam. Foaming is the formation of persistent bubbles on the water surface. Both are caused by high concentrations of dissolved solids.<br>- <strong>Caustic Embrittlement:</strong> A form of corrosion where the boiler material becomes brittle due to high concentrations of sodium hydroxide (caustic soda) at high temperatures and pressures.<br>- <strong>Boiler Corrosion:</strong> Decay of boiler material due to chemical or electrochemical attack, often caused by dissolved oxygen, CO₂, or acids.",
+                            "<strong>Treatments:</strong><br>- <strong>External Treatment:</strong> Treating water before it enters the boiler (e.g., Ion-exchange/demineralization, Zeolite process, Lime-soda process).<br>- <strong>Internal Treatment (Conditioning):</strong> Adding chemicals directly to the boiler water to counteract harmful impurities (e.g., Phosphate conditioning, Calgon conditioning, Colloidal conditioning)."
                         ]
                     }
                 ],
                 flashcards: [
                     { question: "What causes temporary hardness in water?", answer: "Dissolved bicarbonates of Calcium (Ca(HCO₃)₂) and Magnesium (Mg(HCO₃)₂)." },
-                    { question: "Which method is commonly used to determine the total hardness of water in a lab?", answer: "Complexometric titration using EDTA (Ethylenediaminetetraacetic acid) as the titrant." }
+                    { question: "What causes permanent hardness in water?", answer: "Dissolved chlorides and sulfates of Calcium and Magnesium (e.g., CaCl₂, MgSO₄)." },
+                    { question: "What indicator is used in the EDTA method for hardness determination?", answer: "Eriochrome Black-T (EBT) at a pH of about 10." },
+                    { question: "What is the color change at the endpoint of an EDTA titration for hardness?", answer: "Wine-red to steel-blue." },
+                    { question: "What are the main ions responsible for alkalinity in water?", answer: "Hydroxide (OH⁻), Carbonate (CO₃²⁻), and Bicarbonate (HCO₃⁻)." },
+                    { question: "In alkalinity titration, what does the Phenolphthalein endpoint signify?", answer: "The neutralization of all OH⁻ ions and half of the CO₃²⁻ ions." },
+                    { question: "What is the main difference between scale and sludge in a boiler?", answer: "Scale is a hard, adherent deposit, while sludge is a soft, loose precipitate." },
+                    { question: "What is caustic embrittlement?", answer: "A type of boiler corrosion where the material becomes brittle due to a high concentration of NaOH." },
+                    { question: "What is the principle of the Winkler method for measuring Dissolved Oxygen (DO)?", answer: "It's a redox titration where DO oxidizes Mn(II), which in turn liberates iodine that is then titrated." },
+                    { question: "According to Quinonoid theory, what causes an indicator to change color?", answer: "A structural change (tautomerism) between a benzenoid form and a quinonoid form." }
                 ],
                 quiz: [
-                    { question: "Which of the following causes permanent hardness?", options: ["Calcium Bicarbonate", "Magnesium Sulfate", "Magnesium Bicarbonate", "None of the above"], correct: 1 }
+                    { question: "Which of the following causes permanent hardness?", options: ["Calcium Bicarbonate", "Magnesium Sulfate", "Magnesium Bicarbonate", "Potassium Chloride"], correct: 1 },
+                    { question: "The endpoint in the EDTA titration for water hardness is indicated by a color change from:", options: ["Blue to Red", "Red to Colorless", "Wine-Red to Blue", "Yellow to Pink"], correct: 2 },
+                    { question: "If the Phenolphthalein alkalinity (P) is zero for a water sample, it indicates the absence of:", options: ["Bicarbonates", "Carbonates and Hydroxides", "Chlorides", "Sulfates"], correct: 1 },
+                    { question: "The formation of hard, adherent deposits on the inner surfaces of a boiler is known as:", options: ["Foaming", "Sludge", "Scale", "Corrosion"], correct: 2 },
+                    { question: "Caustic embrittlement in boilers is caused by high concentrations of:", options: ["Dissolved Oxygen", "Calcium Sulfate", "Sodium Hydroxide (NaOH)", "Magnesium Chloride"], correct: 2 }
                 ]
             },
-            "questionBank": []
+            "Unit 2: Analytical Methods": {
+                notes: [
+                    {
+                        title: "🌈 UV-Visible Spectroscopy",
+                        points: [
+                            "<strong>Principle:</strong> Involves the absorption of ultraviolet (200-400 nm) or visible (400-800 nm) light by molecules, leading to electronic transitions from a lower energy state (ground state) to a higher energy state (excited state).",
+                            "<strong>Beer-Lambert Law:</strong> States that the absorbance (A) of a solution is directly proportional to the concentration (c) of the absorbing species and the path length (b) of the light through the solution. `A = εbc`, where ε is the molar absorptivity (a constant for a given substance at a specific wavelength).",
+                            "<strong>Chromophores:</strong> Functional groups containing unsaturated bonds (e.g., C=C, C=O, N=N) that absorb UV-Vis radiation and are responsible for the color of a compound.",
+                            "<strong>Auxochromes:</strong> Saturated groups with non-bonding electrons (e.g., -OH, -NH₂, -Cl) that do not absorb in the UV-Vis region themselves but can shift the absorption maximum of a chromophore to longer wavelengths (bathochromic shift) and increase its intensity (hyperchromic effect).",
+                            "<strong>Types of Electronic Transitions:</strong> σ→σ*, n→σ*, π→π*, n→π*. Most organic compounds absorb due to π→π* and n→π* transitions.",
+                            "<strong>Applications:</strong><br>1. <strong>Quantitative Analysis:</strong> Determining the concentration of substances in solutions.<br>2. <strong>Identification:</strong> Characterizing compounds with conjugated systems.<br>3. <strong>Kinetics:</strong> Studying reaction rates by monitoring changes in absorbance.<br>4. <strong>Purity Checks:</strong> Detecting impurities in samples."
+                        ]
+                    },
+                    {
+                        title: "💡 IR Spectroscopy",
+                        points: [
+                            "<strong>Principle:</strong> Involves the absorption of infrared (IR) radiation by molecules, causing vibrational transitions (stretching and bending) of bonds. For a molecule to absorb IR radiation, its vibration must cause a net change in the dipole moment of the molecule.",
+                            "<strong>Vibrational Modes:</strong><br> - <strong>Stretching:</strong> Change in bond length (symmetric and asymmetric).<br> - <strong>Bending:</strong> Change in bond angle (scissoring, rocking, wagging, twisting).",
+                            "<strong>Conditions for IR Absorption:</strong> A bond must possess a dipole moment, and this dipole moment must change during the vibration. Symmetrical molecules or bonds (e.g., O₂, N₂, H₂) do not absorb IR radiation.",
+                            "<strong>Fingerprint Region:</strong> The region between 1500 cm⁻¹ and 400 cm⁻¹ in an IR spectrum. It is highly complex and unique for almost every molecule, making it useful for confirming the identity of a compound by comparing it to a known spectrum.",
+                            "<strong>Applications:</strong><br>1. <strong>Functional Group Identification:</strong> Specific functional groups (e.g., -OH, C=O, C≡N) absorb IR radiation at characteristic frequencies.<br>2. <strong>Structural Elucidation:</strong> Providing information about the connectivity and arrangement of atoms in a molecule.<br>3. <strong>Purity Assessment:</strong> Detecting contaminants by comparing spectra."
+                        ]
+                    },
+                    {
+                        title: "⚖️ Thermogravimetry (TGA)",
+                        points: [
+                            "<strong>Principle:</strong> A thermal analysis technique that measures the change in mass of a sample as a function of temperature or time, in a controlled atmosphere. The sample is heated at a constant rate, and any mass loss (or gain) is recorded.",
+                            "<strong>Information Obtained:</strong><br> - <strong>Thermal Stability:</strong> Temperature at which a material starts to decompose.<br> - <strong>Decomposition Temperatures:</strong> Temperatures at which specific components decompose.<br> - <strong>Composition:</strong> Quantification of components in a mixture (e.g., moisture, volatile content, organic content, inorganic residue/ash).",
+                            "<strong>TGA Curve:</strong> A plot of mass percentage versus temperature (or time). Steps in the curve indicate mass loss events.",
+                            "<strong>Applications:</strong><br>1. <strong>Polymer Degradation:</strong> Studying the thermal decomposition of polymers.<br>2. <strong>Moisture Content:</strong> Determining water content in materials.<br>3. <strong>Ash Content:</strong> Measuring the inorganic residue after combustion.<br>4. <strong>Reaction Kinetics:</strong> Analyzing decomposition reaction rates."
+                        ]
+                    },
+                    {
+                        title: "🌡️ Differential Thermal Analysis (DTA)",
+                        points: [
+                            "<strong>Principle:</strong> A thermal analysis technique that measures the temperature difference between a sample and an inert reference material as both are subjected to the same controlled temperature program. The temperature difference (ΔT) is plotted against temperature or time.",
+                            "<strong>Information Obtained:</strong><br> - <strong>Endothermic Processes:</strong> (e.g., melting, dehydration, phase transitions) cause the sample temperature to lag behind the reference, resulting in a negative ΔT peak.<br> - <strong>Exothermic Processes:</strong> (e.g., crystallization, oxidation, decomposition) cause the sample temperature to exceed the reference, resulting in a positive ΔT peak.",
+                            "<strong>DTA Curve:</strong> A plot of ΔT versus temperature. Peaks indicate thermal events.",
+                            "<strong>Applications:</strong><br>1. <strong>Phase Transitions:</strong> Identifying melting, boiling, and crystallization points.<br>2. <strong>Reaction Kinetics:</strong> Studying the energy changes during chemical reactions.<br>3. <strong>Purity Assessment:</strong> Impurities can alter melting points.<br>4. <strong>Mineralogy:</strong> Characterizing minerals."
+                        ]
+                    },
+                    {
+                        title: "🔥 Differential Scanning Calorimetry (DSC)",
+                        points: [
+                            "<strong>Principle:</strong> A thermal analysis technique that measures the heat flow difference between a sample and a reference as a function of temperature or time. Unlike DTA, DSC directly measures the heat absorbed or released during thermal events.",
+                            "<strong>Types of DSC:</strong><br> - <strong>Heat Flux DSC:</strong> Measures the temperature difference across a thermoelectric disk.<br> - <strong>Power Compensated DSC:</strong> Measures the differential power required to maintain the sample and reference at the same temperature.",
+                            "<strong>Information Obtained:</strong><br> - <strong>Glass Transition Temperature (Tg):</strong> A change in heat capacity, appearing as a step change.<br> - <strong>Melting Point (Tm):</strong> An endothermic peak.<br> - <strong>Crystallization Temperature (Tc):</strong> An exothermic peak.<br> - <strong>Heat Capacity (Cp):</strong> Quantitative measurement.<br> - <strong>Reaction Enthalpies:</strong> (e.g., polymerization, curing) measured from peak areas.",
+                            "<strong>DSC Curve:</strong> A plot of heat flow versus temperature. Peaks (endothermic or exothermic) and step changes (glass transition) provide quantitative and qualitative information.",
+                            "<strong>Applications:</strong><br>1. <strong>Polymer Characterization:</strong> Determining Tg, Tm, Tc, and degree of crystallinity.<br>2. <strong>Pharmaceuticals:</strong> Drug stability, polymorphism, purity.<br>3. <strong>Food Science:</strong> Fat crystallization, starch gelatinization.<br>4. <strong>Material Science:</strong> Thermal properties of composites, ceramics, metals."
+                        ]
+                    }
+                ],
+                flashcards: [
+                    { question: "What is the Beer-Lambert Law?", answer: "A = εbc, where A is absorbance, ε is molar absorptivity, b is path length, and c is concentration." },
+                    { question: "What are chromophores?", answer: "Functional groups with unsaturated bonds that absorb UV-Vis radiation, causing electronic transitions." },
+                    { question: "What is the condition for a molecule to absorb IR radiation?", answer: "Its vibration must cause a net change in the dipole moment of the molecule." },
+                    { question: "What is the 'fingerprint region' in IR spectroscopy used for?", answer: "It's a unique region (1500-400 cm⁻¹) used for confirming the identity of a compound." },
+                    { question: "What does Thermogravimetry (TGA) measure?", answer: "The change in mass of a sample as a function of temperature or time." },
+                    { question: "What kind of information can be obtained from a TGA curve?", answer: "Thermal stability, decomposition temperatures, and quantitative composition (e.g., moisture, ash content)." },
+                    { question: "What is the key difference between an endothermic and exothermic process in DTA?", answer: "Endothermic processes (e.g., melting) show a negative ΔT peak, while exothermic processes (e.g., crystallization) show a positive ΔT peak." },
+                    { question: "What does Differential Scanning Calorimetry (DSC) directly measure?", answer: "The heat flow difference between a sample and a reference." },
+                    { question: "What is a glass transition temperature (Tg) and how does it appear on a DSC curve?", answer: "Tg is the temperature at which an amorphous polymer transitions from a hard, glassy state to a soft, rubbery state. It appears as a step change in the heat flow curve." },
+                    { question: "Name one application of UV-Visible spectroscopy.", answer: "Quantitative analysis (determining concentration) or identification of conjugated systems." },
+                    { question: "Name one application of IR spectroscopy.", answer: "Identification of functional groups or structural elucidation." },
+                    { question: "Name one application of DSC.", answer: "Polymer characterization (Tg, Tm, Tc), drug stability, or food science." }
+                ],
+                quiz: [
+                    { question: "Which law relates absorbance to concentration and path length in UV-Vis spectroscopy?", options: ["Lambert's Law", "Beer's Law", "Beer-Lambert Law", "Planck's Law"], correct: 2 },
+                    { question: "A functional group that shifts the absorption maximum of a chromophore to longer wavelengths is called an:", options: ["Chromophore", "Auxochrome", "Bathochrome", "Hypsochrome"], correct: 1 },
+                    { question: "IR spectroscopy primarily measures changes in:", options: ["Electronic transitions", "Nuclear spin states", "Vibrational transitions", "Rotational transitions"], correct: 2 },
+                    { question: "Which of the following molecules would NOT show IR absorption?", options: ["H₂O", "CO₂", "N₂", "CH₄"], correct: 2 },
+                    { question: "Thermogravimetry (TGA) is used to determine a material's:", options: ["Melting point", "Heat capacity", "Mass change with temperature", "Electrical conductivity"], correct: 2 },
+                    { question: "An endothermic process in Differential Thermal Analysis (DTA) is indicated by:", options: ["A positive ΔT peak", "A negative ΔT peak", "No change in ΔT", "A step change in ΔT"], correct: 1 },
+                    { question: "Differential Scanning Calorimetry (DSC) directly measures:", options: ["Mass change", "Temperature difference", "Heat flow difference", "Light absorption"], correct: 2 },
+                    { question: "The glass transition temperature (Tg) of a polymer is typically observed as a _______ in a DSC curve.", options: ["Sharp endothermic peak", "Sharp exothermic peak", "Step change in heat flow", "Baseline shift without a peak"], correct: 2 },
+                    { question: "Which type of electronic transition is commonly observed in organic molecules in the UV-Vis region?", options: ["σ→σ*", "n→σ*", "π→π*", "d→d"], correct: 2 },
+                    { question: "The region of an IR spectrum that is most unique to a specific molecule is known as the:", options: ["Functional group region", "Fingerprint region", "Overtone region", "Combination band region"], correct: 1 }
+                ]
+            },
+            "Unit 3: Polymers & Plastics": {
+                notes: [
+                    {
+                        title: "🧬 Fundamental Concepts",
+                        points: [
+                            "<strong>Polymer:</strong> A macromolecule, or high molecular weight compound, formed by the combination of a large number of small molecules known as monomers. The structures are composed of simple repeating units.",
+                            "<strong>Monomer:</strong> A small molecule that combines with other monomers to form a polymer. Examples include ethylene, vinyl chloride, and styrene.",
+                            "<strong>Repeating Unit:</strong> The simple, low molecular weight unit that is repeated to form the polymer structure.",
+                            "<strong>Polymerization:</strong> The process in which a large number of monomer molecules combine to form a large polymer molecule. This may or may not involve the elimination of small molecules like H₂O.",
+                            "<strong>Degree of Polymerization (DP):</strong> The number of repeating units in a single polymer molecule. Higher DP generally leads to harder, more heat-resistant polymers, while lower DP results in softer, gummy polymers."
+                        ]
+                    },
+                    {
+                        title: "🗂️ Classification of Polymers",
+                        points: [
+                            "<strong>Based on Monomer Units (Composition):</strong><br>- <strong>Homopolymer:</strong> Consists of only one type of repeating unit (e.g., A-A-A-A).<br>- <strong>Copolymer:</strong> Consists of two or more different repeating units (e.g., A and B). Types include Block, Graft, Alternating, and Random copolymers.",
+                            "<strong>Based on Source:</strong><br>- <strong>Natural:</strong> Found in nature (e.g., proteins, cellulose, starch, rubber).<br>- <strong>Semi-Synthetic:</strong> Chemically modified natural polymers (e.g., cellulose acetate/rayon).<br>- <strong>Synthetic:</strong> Man-made polymers (e.g., polythene, nylon 6,6, Buna-S).",
+                            "<strong>Based on Structure (Chain Architecture):</strong><br>- <strong>Linear:</strong> Long, straight chains (e.g., HDPE, PVC).<br>- <strong>Branched Chain:</strong> Linear chains with smaller branches (e.g., LDPE).<br>- <strong>Cross-linked or Network:</strong> Linear chains linked by strong covalent bonds, forming a network (e.g., bakelite, melamine).",
+                            "<strong>Based on Molecular Forces:</strong><br>- <strong>Elastomers:</strong> Rubber-like solids with weak interaction forces (e.g., rubber).<br>- <strong>Fibres:</strong> Strong, tough materials with high tensile strength and strong intermolecular forces (e.g., Nylon 6,6).<br>- <strong>Thermoplastics:</strong> Have intermediate forces of attraction, soften on heating (e.g., PVC).<br>- <strong>Thermosetting Polymers:</strong> Form rigid, cross-linked structures on heating, enhancing mechanical and heat resistance (e.g., phenolics, epoxies).",
+                            "<strong>Based on Tacticity (Stereochemistry):</strong> Describes the spatial orientation of functional groups.<br>- <strong>Isotactic:</strong> Functional groups are all on the same side of the main chain.<br>- <strong>Syndiotactic:</strong> Functional groups are on alternating sides.<br>- <strong>Atactic:</strong> Functional groups are arranged randomly."
+                        ]
+                    },
+                    {
+                        title: "🔄 Modes & Mechanisms of Polymerization",
+                        points: [
+                            "<strong>By Mode of Polymerization:</strong><br>1. <strong>Addition (Chain Growth):</strong> Monomer units repeatedly join to form a giant polymer, increasing the chain length with each step. Example: Polymerization of ethene.<br>2. <strong>Condensation (Step Growth):</strong> Small molecules (like H₂O) are eliminated as monomers join. Involves bifunctional monomers like diols or diamines. Example: Preparation of nylon 6,6.<br>3. <strong>Copolymerization:</strong> Combining two different monomers to form a copolymer. Example: Styrene-butadiene rubber (SBR).",
+                            "<strong>By Mechanism of Polymerization:</strong><br>1. <strong>Radical Polymerization:</strong> Initiated by a radical, with the growing chain end being a carbon radical.<br>2. <strong>Cationic Polymerization:</strong> Initiated by an acid, with the growing chain end being a carbocation.<br>3. <strong>Anionic Polymerization:</strong> Initiated by a nucleophile, with the growing chain end being a carbanion.<br>4. <strong>Coordination Catalytic Polymerization:</strong> Initiated by a transition metal complex (e.g., Ziegler-Natta)."
+                        ]
+                    },
+                    {
+                        title: "🔬 In-Depth Polymerization Mechanisms",
+                        points: [
+                            "<strong>Radical Polymerization:</strong><br>- <strong>Initiation:</strong> A radical initiator (e.g., benzoyl peroxide) starts the process.<br>- <strong>Propagation:</strong> The chain radical attacks new monomers, extending the chain.<br>- <strong>Termination:</strong> Chain growth stops via Radical Combination (two chains join) or Disproportionation (one chain abstracts an atom from another).<br>- <strong>Chain Transfer:</strong> Radical activity is transferred to another molecule, terminating the growing chain and starting a new one. This creates branched structures like in LDPE.",
+                            "<strong>Anionic Polymerization:</strong> Involves initiation by a nucleophile (e.g., sec-butyllithium), propagation of the carbanion chain, and termination by a quenching agent (e.g., CH₃OH).",
+                            "<strong>Ziegler-Natta Catalytic Polymerization:</strong><br>- <strong>Overview:</strong> A highly efficient and stereospecific method that controls the 3D arrangement (tacticity) of the polymer.<br>- <strong>Catalyst:</strong> Typically a transition metal halide (e.g., TiCl₄) reacted with an organometallic reagent (e.g., triethylaluminum).<br>- <strong>Achievements:</strong> Enabled synthesis of unbranched HDPE, synthetic natural rubber, and pure isotactic/syndiotactic polymers."
+                        ]
+                    },
+                    {
+                        title: "⚖️ Molecular Weights of Polymers",
+                        points: [
+                            "Polymer samples are typically <strong>polydisperse</strong> (containing chains of different lengths).",
+                            "<strong>Number Average Molecular Weight (Mₙ):</strong> The total weight of all polymer molecules divided by the total number of molecules. Formula: `Mₙ = (Σ Nᵢ Mᵢ) / (Σ Nᵢ)`.",
+                            "<strong>Weight Average Molecular Weight (Mₒ):</strong> An average that gives more weight to heavier molecules. Formula: `Mₒ = (Σ Nᵢ Mᵢ²) / (Σ Nᵢ Mᵢ)`.",
+                            "<strong>Polydispersity Index (PDI):</strong> A measure of the breadth of the molecular-weight distribution. Formula: `PDI = Mₒ / Mₙ`.<br>- PDI = 1 for a monodisperse sample (all chains have the same length).<br>- PDI > 1 for a polydisperse sample.",
+                            "<strong>Characterization Techniques:</strong><br>- <strong>For Mₙ:</strong> Osmometry (Membrane or Vapor Pressure), Mass Spectrometry.<br>- <strong>For Mₒ:</strong> Static Laser Light Scattering, Analytical Ultracentrifuge."
+                        ]
+                    },
+                    {
+                        title: "🏭 Commercial Polymerization Techniques",
+                        points: [
+                            "<strong>Bulk Polymerization:</strong> Polymerization of an undiluted monomer. Simple system and pure polymer, but heat transfer and viscosity control are difficult.",
+                            "<strong>Solution Polymerization:</strong> Monomer is dissolved in an inert solvent. Easy heat/viscosity control, but requires costly solvent removal and can lead to lower molecular weight.",
+                            "<strong>Suspension Polymerization:</strong> Water-insoluble monomer is suspended as droplets in water. Each droplet is a tiny bulk reactor. Cheap and easy product isolation, but can only be used for water-insoluble monomers and purity is lower.",
+                            "<strong>Emulsion Polymerization:</strong> Monomer is emulsified in water with a surfactant, forming micelles where polymerization occurs. Produces very high molecular weight polymers at fast rates with excellent heat control, but purity is low due to additives."
+                        ]
+                    }
+                ],
+                flashcards: [
+                    { question: "What is a monomer?", answer: "The basic repeating unit from which a polymer is synthesized." },
+                    { question: "What is the key difference between addition and condensation polymerization?", answer: "Addition polymerization involves no loss of atoms, while condensation polymerization involves the elimination of a small molecule (e.g., water)." },
+                    { question: "Can thermoplastics be recycled?", answer: "Yes, generally they can be repeatedly melted and reshaped." },
+                    { question: "What is the primary structural characteristic of a thermosetting plastic?", answer: "A highly cross-linked, three-dimensional network structure formed by strong covalent bonds." },
+                    { question: "What are the two main components of a composite material?", answer: "A matrix and a reinforcement." },
+                    { question: "Name an advantage of composite materials.", answer: "High strength-to-weight ratio, high stiffness-to-weight ratio, or corrosion resistance." }
+                ],
+                quiz: [
+                    { question: "Which of the following is a homopolymer?", options: ["Nylon 6,6", "Polyethylene", "PET", "Bakelite"], correct: 1 },
+                    { question: "Condensation polymerization typically involves the elimination of:", options: ["Oxygen", "Carbon Dioxide", "Water", "Methane"], correct: 2 },
+                    { question: "Which type of plastic cannot be easily recycled?", options: ["Polyethylene", "PVC", "Bakelite", "Polystyrene"], correct: 2 },
+                    { question: "The continuous phase in a composite material is called the:", options: ["Reinforcement", "Filler", "Matrix", "Binder"], correct: 2 },
+                    { question: "Which of these is NOT an advantage of composite materials?", options: ["High strength-to-weight ratio", "Corrosion resistance", "Easy recyclability", "Tailorable properties"], correct: 2 }
+                ]
+            }.concat([
+                // Unit 3: Polymers & Composites Questions
+                { "question": "A polymer made from two or more different types of monomers is called a:", "options": ["Homopolymer", "Copolymer", "Monomer", "Elastomer"], "correct": 1 },
+                { "question": "Which type of polymerization involves the elimination of a small molecule like water?", "options": ["Addition Polymerization", "Chain-growth Polymerization", "Condensation Polymerization", "Radical Polymerization"], "correct": 2 },
+                { "question": "Which of the following is a key characteristic of thermosetting plastics?", "options": ["They can be repeatedly melted and reshaped", "They have weak intermolecular forces", "They form a rigid, cross-linked network upon heating", "They are easily recyclable"], "correct": 2 },
+                { "question": "The spatial arrangement of functional groups along a polymer chain is described by its:", "options": ["Degree of Polymerization", "Molecular Weight", "Tacticity", "Crystallinity"], "correct": 2 },
+                { "question": "Ziegler-Natta catalysts are known for producing polymers with high:", "options": ["Randomness", "Solubility", "Stereospecificity (controlled tacticity)", "Brittleness"], "correct": 2 },
+                { "question": "The Polydispersity Index (PDI) is the ratio of:", "options": ["Mₙ / Mₒ", "Mₒ / Mₙ", "Monomer weight to Polymer weight", "Chain length to DP"], "correct": 1 },
+                { "question": "Which polymerization technique is known for producing very high molecular weight polymers in an aqueous medium using micelles?", "options": ["Bulk Polymerization", "Solution Polymerization", "Suspension Polymerization", "Emulsion Polymerization"], "correct": 3 }
+            ]),
+            "Unit 4: Fuels & Lubricants": {
+                notes: [
+                    {
+                        title: "📝 Coming Soon",
+                        points: [
+                            "Notes for this unit will be added shortly."
+                        ]
+                    }
+                ],
+                flashcards: {},
+                quiz: {}
+            },
+            "Unit 5: Instrumental Methods of Analysis": {
+                notes: [
+                    {
+                        title: "📝 Coming Soon",
+                        points: [
+                            "Notes for this unit will be added shortly."
+                        ]
+                    }
+                ],
+                flashcards: {},
+                quiz: {}
+            },
+            "Unit 6: Green Chemistry & Nanotechnology": {
+                notes: [
+                    {
+                        title: "📝 Coming Soon",
+                        points: [
+                            "Notes for this unit will be added shortly."
+                        ]
+                    }
+                ],
+                flashcards: {},
+                quiz: {}
+            },
+            "questionBank": [
+                { "question": "Hardness of water is caused by the presence of dissolved salts of:", "options": ["Sodium and Potassium", "Calcium and Magnesium", "Iron and Zinc", "Chlorine and Fluorine"], "correct": 1 },
+                { "question": "Temporary hardness can be removed by:", "options": ["Filtration", "Adding Alum", "Boiling", "Chlorination"], "correct": 2 },
+                { "question": "In the EDTA method for determining hardness, the indicator used is:", "options": ["Methyl Orange", "Phenolphthalein", "Eriochrome Black-T", "Starch"], "correct": 2 },
+                { "question": "The pH maintained during EDTA titration for hardness is approximately:", "options": ["4", "7", "10", "2"], "correct": 2 },
+                { "question": "Alkalinity in water is its capacity to neutralize:", "options": ["Bases", "Salts", "Acids", "Metals"], "correct": 2 },
+                { "question": "If Phenolphthalein alkalinity (P) is equal to Total/Methyl Orange alkalinity (M), the water contains only:", "options": ["Bicarbonates (HCO₃⁻)", "Carbonates (CO₃²⁻)", "Hydroxides (OH⁻)", "A mix of OH⁻ and CO₃²⁻"], "correct": 2 },
+                { "question": "Hard, adherent deposits inside a boiler are called:", "options": ["Sludge", "Scale", "Foam", "Corrosion"], "correct": 1 },
+                { "question": "Caustic embrittlement is a type of boiler corrosion caused by high concentrations of:", "options": ["Dissolved Oxygen", "Sodium Hydroxide", "Calcium Carbonate", "Magnesium Chloride"], "correct": 1 },
+                { "question": "The Winkler method is used to determine the amount of what in a water sample?", "options": ["Hardness", "Alkalinity", "Dissolved Oxygen (DO)", "Chlorine"], "correct": 2 },
+                { "question": "According to Ostwald's theory, an acid-base indicator's color change is due to:", "options": ["Structural rearrangement", "Ionization of a weak acid/base", "A redox reaction", "Complex formation"], "correct": 1 }
+            ].concat([
+                // Unit 2: Analytical Methods Questions
+                { "question": "Which law relates absorbance to concentration and path length in UV-Vis spectroscopy?", "options": ["Lambert's Law", "Beer's Law", "Beer-Lambert Law", "Planck's Law"], "correct": 2 },
+                { "question": "A functional group that shifts the absorption maximum of a chromophore to longer wavelengths is called an:", "options": ["Chromophore", "Auxochrome", "Bathochrome", "Hypsochrome"], "correct": 1 },
+                { "question": "IR spectroscopy primarily measures changes in:", "options": ["Electronic transitions", "Nuclear spin states", "Vibrational transitions", "Rotational transitions"], "correct": 2 },
+                { "question": "Which of the following molecules would NOT show IR absorption?", "options": ["H₂O", "CO₂", "N₂", "CH₄"], "correct": 2 },
+                { "question": "Thermogravimetry (TGA) is used to determine a material's:", "options": ["Melting point", "Heat capacity", "Mass change with temperature", "Electrical conductivity"], "correct": 2 },
+                { "question": "An endothermic process in Differential Thermal Analysis (DTA) is indicated by:", "options": ["A positive ΔT peak", "A negative ΔT peak", "No change in ΔT", "A step change in ΔT"], "correct": 1 },
+                { "question": "Differential Scanning Calorimetry (DSC) directly measures:", "options": ["Mass change", "Temperature difference", "Heat flow difference", "Light absorption"], "correct": 2 },
+                { "question": "The glass transition temperature (Tg) of a polymer is typically observed as a _______ in a DSC curve.", "options": ["Sharp endothermic peak", "Sharp exothermic peak", "Step change in heat flow", "Baseline shift without a peak"], "correct": 2 },
+                { "question": "Which type of electronic transition is commonly observed in organic molecules in the UV-Vis region?", "options": ["σ→σ*", "n→σ*", "π→π*", "d→d"], "correct": 2 },
+                { "question": "The region of an IR spectrum that is most unique to a specific molecule is known as the:", "options": ["Functional group region", "Fingerprint region", "Overtone region", "Combination band region"], "correct": 1 }
+            ]).concat([
+                // Unit 3: Polymers & Composites Questions
+                { "question": "A polymer made from two or more different types of monomers is called a:", "options": ["Homopolymer", "Copolymer", "Monomer", "Elastomer"], "correct": 1 },
+                { "question": "Which type of polymerization involves the elimination of a small molecule like water?", "options": ["Addition Polymerization", "Chain-growth Polymerization", "Condensation Polymerization", "Radical Polymerization"], "correct": 2 },
+                { "question": "Which of the following is a key characteristic of thermosetting plastics?", "options": ["They can be repeatedly melted and reshaped", "They have weak intermolecular forces", "They form a rigid, cross-linked network upon heating", "They are easily recyclable"], "correct": 2 },
+                { "question": "The spatial arrangement of functional groups along a polymer chain is described by its:", "options": ["Degree of Polymerization", "Molecular Weight", "Tacticity", "Crystallinity"], "correct": 2 },
+                { "question": "Ziegler-Natta catalysts are known for producing polymers with high:", "options": ["Randomness", "Solubility", "Stereospecificity (controlled tacticity)", "Brittleness"], "correct": 2 },
+                { "question": "The Polydispersity Index (PDI) is the ratio of:", "options": ["Mₙ / Mₒ", "Mₒ / Mₙ", "Monomer weight to Polymer weight", "Chain length to DP"], "correct": 1 },
+                { "question": "Which polymerization technique is known for producing very high molecular weight polymers in an aqueous medium using micelles?", "options": ["Bulk Polymerization", "Solution Polymerization", "Suspension Polymerization", "Emulsion Polymerization"], "correct": 3 }
+            ])
         }
     }
 };

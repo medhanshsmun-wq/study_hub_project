@@ -600,6 +600,49 @@ ul {
     display: block;
 }
 
+.sub-topic-pane {
+    display: none;
+}
+
+.sub-topic-pane.active {
+    display: block;
+}
+
+.sub-topic-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sub-topic-tab {
+    padding: 8px 16px;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    background-color: var(--tab-inactive-bg);
+    color: var(--tab-inactive-text);
+    border-radius: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.sub-topic-tab:hover {
+    background-color: var(--accent-color);
+    color: #fff;
+    border-color: var(--accent-color);
+}
+
+.sub-topic-tab.active {
+    background-color: var(--accent-color);
+    color: #fff;
+    border-color: var(--accent-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
 /* Theme Selector Styles */
 #theme-selector {
     display: flex;
@@ -813,4 +856,124 @@ ul {
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s;
+}
+
+/* --- Custom Theme Modal Styles --- */
+#custom-theme-modal {
+    max-width: 600px;
+    text-align: left;
+}
+
+.theme-editor-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.theme-editor-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.theme-editor-item label {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.theme-editor-item input[type="color"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 50px;
+    height: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.theme-modal-actions {
+    text-align: right;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+/* --- Subjective Question Styles --- */
+.subjective-question-container {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--card-shadow);
+    border-left: 4px solid var(--accent-color);
+}
+
+.subjective-question {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.toggle-answer-btn {
+    padding: 8px 16px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    border: 1px solid var(--accent-color);
+    background-color: transparent;
+    color: var(--accent-color);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.toggle-answer-btn:hover {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+
+.subjective-answer {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    line-height: 1.7;
+}
+
+/* --- Code Block with Copy Button --- */
+.code-block-wrapper {
+    position: relative;
+    margin: 1rem 0;
+}
+
+.copy-code-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: var(--tab-inactive-bg);
+    color: var(--tab-inactive-text);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s, background-color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.code-block-wrapper:hover .copy-code-btn {
+    opacity: 1;
+}
+
+.copy-code-btn:hover {
+    background-color: var(--accent-color);
+    color: #fff;
 }

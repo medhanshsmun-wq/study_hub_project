@@ -13,16 +13,21 @@
 </head>
 <body>
     <header>
-        <div id="auth-container"></div>
         <h1>DTU Study Hub</h1>
-        <div id="mode-selector">
-            <button id="notes-btn" class="mode-btn active">Notes</button>
-            <button id="flashcards-btn" class="mode-btn">Flashcards</button>
-            <button id="question-bank-btn" class="mode-btn">Question Bank</button>
-            <button id="athena-btn" class="mode-btn">Athena ✨</button>
+        <div id="header-controls">
+            <div id="auth-container"></div>
+            <!-- Theme selector will be injected here by JS -->
         </div>
     </header>
-    <main id="content-container" class="notes-mode"></main>
+
+    <div class="app-body">
+        <nav id="sidebar">
+            <div id="mode-selector">
+                <!-- Mode buttons will be injected here by JS -->
+            </div>
+        </nav>
+        <main id="content-container" class="notes-mode"></main>
+    </div>
 
     <div id="login-modal-overlay" class="modal-overlay hidden">
         <div id="login-modal" class="modal">
@@ -31,6 +36,13 @@
             <a href="/auth/google" class="google-login-btn">Login with Google</a>
         </div>
     </div>
+
+    <div id="custom-theme-modal-overlay" class="modal-overlay hidden">
+        <div id="custom-theme-modal" class="modal">
+            <!-- Content will be injected by JavaScript -->
+        </div>
+    </div>
+
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="script.js"></script>

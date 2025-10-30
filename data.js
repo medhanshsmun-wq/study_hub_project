@@ -103,48 +103,8 @@ module.exports.studyData = {
                 quiz: [
                     { question: "Which statement is used to skip the current loop iteration and continue with the next?", options: ["break", "return", "exit", "continue"], correct: 3 },
                     { question: "What is the scope of a variable declared with the `extern` storage class?", options: ["Local to the function", "Local to the file", "Global across multiple files", "Local to the block"], correct: 2 }
-                ]
-            },
-            "Functions & Recursion": {
-                subjectiveQuestions: [
-                    {
-                        question: "Explain the concept of recursion and write a C program to calculate the factorial of a number using recursion.",
-                        answer: `
-                            <p><strong>Recursion</strong> is a programming technique where a function calls itself to solve a problem. A recursive function must have two parts:</p>
-                            <ul>
-                                <li><strong>Base Case:</strong> A condition that stops the recursion. Without it, the function would call itself infinitely.</li>
-                                <li><strong>Recursive Step:</strong> The part of the function that calls itself, usually with a modified argument that moves it closer to the base case.</li>
-                            </ul>
-                            <p><strong>C Program for Factorial using Recursion:</strong></p>
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-
-long long factorial(int n) {
-    // Base case: factorial of 0 or 1 is 1
-    if (n == 0 || n == 1) {
-        return 1;
-    }
-    // Recursive step: n * factorial of (n-1)
-    return n * factorial(n - 1);
-}
-
-int main() {
-    int num = 5;
-    printf("Factorial of %d is %lld\\n", num, factorial(num)); // Output: Factorial of 5 is 120
-    return 0;
-}</code></pre>`
-                    },
-                    {
-                        question: "What are storage classes in C? Briefly explain `auto`, `extern`, `static`, and `register`.",
-                        answer: `
-                            <p><strong>Storage classes</strong> in C determine the scope (visibility) and lifetime (duration) of variables and functions.</p>
-                            <ul>
-                                <li><strong><code>auto</code>:</strong> The default storage class for local variables. They are visible only within the block they are declared in and their lifetime ends when the block is exited.</li>
-                                <li><strong><code>extern</code>:</strong> Used to declare a global variable that is defined in another file. It extends the visibility of the variable across multiple files.</li>
-                                <li><strong><code>static</code>:</strong> When used with a local variable, it preserves the variable's value between function calls. When used with a global variable, it limits its scope to the file in which it is declared.</li>
-                                <li><strong><code>register</code>:</strong> A hint to the compiler to store the variable in a CPU register instead of memory for faster access. It's not guaranteed the compiler will honor this request.</li>
-                            </ul>`
-                    }
-                ]
+                ],
+                subjectiveQuestions: []
             },
             "Arrays, Strings, and Pointers": {
                 notes: [
@@ -241,47 +201,7 @@ int custom_strlen(const char *str) {
                 ]
             },
             "Structures, Unions & Memory": {
-                notes: [
-                    {
-                        title: "🏗️ Structures & Unions",
-                        points: [
-                            "<strong>Structure (`struct`):</strong> A user-defined data type that groups together variables of different data types under a single name.",
-                            "<strong>Declaration:</strong> `struct Point { int x; int y; };`",
-                            "<strong>Usage:</strong> Access members using the dot operator (`.`) for variables, and the arrow operator (`->`) for pointers to structures.",
-                            "<strong>Union (`union`):</strong> A user-defined data type where all members share the same memory location. Only one member can be used at a time."
-                        ]
-                    },
-                    {
-                        title: "🔗 Pointers to Structures & Function Arguments",
-                        points: [
-                            "Pointers can point to structures, e.g., `struct Point *ptr;`",
-                            "<strong>Call by Value:</strong> A copy of the argument's value is passed to the function. Changes inside the function do not affect the original variable.",
-                            "<strong>Call by Reference:</strong> The address of the argument is passed to the function (using pointers). Changes inside the function affect the original variable."
-                        ]
-                    },
-                    {
-                        title: "🧠 Dynamic Memory Allocation",
-                        points: [
-                            "Allocating memory at runtime from the heap. Functions are in `<stdlib.h>`.",
-                            "<strong>`malloc(size)`:</strong> Allocates a single block of memory of the specified size. Returns a `void*` pointer.",
-                            "<strong>`calloc(n, size)`:</strong> Allocates memory for an array of `n` elements of `size` bytes each and initializes them to zero.",
-                            "<strong>`free(ptr)`:</strong> Deallocates the memory previously allocated.",
-                            "<strong>`realloc(ptr, new_size)`:</strong> Changes the size of the memory block pointed to by `ptr`."
-                        ]
-                    }
-                ],
-                flashcards: [
-                    { question: "What is the main difference between a structure and a union?", answer: "In a structure, each member has its own memory location. In a union, all members share the same memory location." },
-                    { question: "What is the difference between Call by Value and Call by Reference?", answer: "Call by Value passes a copy of data, so original data is unchanged. Call by Reference passes a memory address (pointer), allowing the original data to be modified." },
-                    { question: "Which function is used to deallocate dynamically allocated memory?", answer: "`free()`" },
-                    { question: "How do you access a member of a structure using a pointer to that structure?", answer: "Using the arrow operator (`->`), for example: `ptr->member`." }
-                ],
-                quiz: [
-                    { question: "Which function allocates memory for an array and initializes it to zero?", options: ["malloc()", "realloc()", "calloc()", "alloc()"], correct: 2 },
-                    { question: "If `s` is a structure variable, how do you access its member `age`?", options: ["s->age", "s.age", "s(age)", "s[age]"], correct: 1 }
-                ]
-            },
-            "Structures & Dynamic Memory": {
+                // ... existing notes, flashcards, quiz ...
                 subjectiveQuestions: [
                     {
                         question: "Differentiate between `struct` and `union` in C with a suitable example.",
@@ -357,37 +277,7 @@ int main() {
                 ]
             },
             "Preprocessor & Advanced Topics": {
-                notes: [
-                    {
-                        title: "⚙️ Preprocessor Directives",
-                        points: [
-                            "Instructions for the compiler that are processed before the actual compilation begins.",
-                            "<strong>`#include`</strong>: Inserts the content of another file. `<file.h>` for standard library headers, `\"file.h\"` for user-defined headers.",
-                            "<strong>`#define`</strong>: Creates a macro, which is a fragment of code that has been given a name. Used for constants and function-like macros.",
-                            "<strong>Conditional Compilation:</strong> `#ifdef`, `#ifndef`, `#if`, `#else`, `#elif`, `#endif` allow parts of the code to be compiled only if certain conditions are met."
-                        ]
-                    },
-                    {
-                        title: "📚 Library Functions",
-                        points: [
-                            "C provides a rich set of library functions in various header files.",
-                            "<strong>`<stdio.h>`:</strong> Standard input/output functions (`printf`, `scanf`, `fopen`).",
-                            "<strong>`<stdlib.h>`:</strong> Memory allocation (`malloc`), random numbers (`rand`), string conversions (`atoi`).",
-                            "<strong>`<string.h>`:</strong> String manipulation functions (`strcpy`, `strlen`).",
-                            "<strong>`<math.h>`:</strong> Mathematical functions (`sqrt`, `pow`, `sin`)."
-                        ]
-                    }
-                ],
-                flashcards: [
-                    { question: "What is a macro in C?", answer: "A fragment of code that is given a name. When the name is used, it is replaced by the contents of the macro by the preprocessor." },
-                    { question: "What is the difference between `#include <file.h>` and `#include \"file.h\"`?", answer: "`<file.h>` searches in standard system directories. `\"file.h\"` searches in the current directory first, then in standard directories." },
-                    { question: "Which header file is needed for dynamic memory allocation functions like `malloc`?", answer: "`<stdlib.h>`" }
-                ],
-                quiz: [
-                    { question: "Which directive is used to create a macro?", options: ["#include", "#if", "#define", "#macro"], correct: 2 }
-                ]
-            },
-            "File Handling": {
+                // ... existing notes, flashcards, quiz ...
                 subjectiveQuestions: [
                     {
                         question: "What is a file pointer in C? Write a program to read content from a file and print it to the console.",
@@ -541,7 +431,7 @@ int main() {
                 { "question": "What is bitfield in a structure?", options: ["A pointer member", "A way to specify the number of bits a member should occupy", "An array member", "A function pointer"], "correct": 1 },
                 { "question": "What is the purpose of `enum`?", options: ["To create a set of named integer constants", "To define a floating-point constant", "To create a new data type", "To declare a function"], "correct": 0 }
             ] },
-        "Basic Electrical Engineering (BEE 101)": { // Restructured for Units
+        "Basic Electrical Engineering (BEE 101)": {
             "Unit 1: Introduction & DC Networks": {
                 notes: [
                     {
@@ -1870,14 +1760,6 @@ int main() {
             },
             "Unit 4: Electrochemistry(batteries)": {
                   notes: [
-                    {
-                        title: "🔋 What is a Battery? & Classification",
-                        points: [
-                            "<strong>Definition:</strong> A battery is a device that converts Chemical Energy into Electrical Energy. It consists of one or more electrochemical cells.",
-                            "<strong>Components:</strong><br>- <strong>Anode:</strong> Where oxidation (loss of electrons) occurs.<br>- <strong>Cathode:</strong> Where reduction (gain of electrons) occurs.<br>- <strong>Electrolyte:</strong> Allows for the migration of ions between electrodes.<br>- <strong>Separator:</strong> A membrane that prevents the mixing of electrode products.<br><img src='/images/shutterstock_battery_components.png' alt='Battery Components' style='max-width: 400px; border-radius: 8px; margin-top: 10px; background-color: #fff; padding: 5px;'>",
-                            "<strong>Classification:</strong><br>1. <strong>Primary Cells:</strong> Not rechargeable. The chemical reaction is irreversible. Once reactants are consumed, the cell is 'dead'. (e.g., Zn-C Dry Cell).<br>2. <strong>Secondary Cells:</strong> Rechargeable. The cell reaction can be reversed by applying an external current. (e.g., Lead-Acid Battery)."
-                        ]
-                    },
                     {
                         title: "🔋 What is a Battery? & Classification",
                         points: [

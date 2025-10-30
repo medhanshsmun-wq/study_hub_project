@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 
+
 // --- Refactored Data Loading ---
 let studyData;
 try {
@@ -35,22 +36,24 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Serve the frontend static files
-const frontendPath = path.join(__dirname, '..', 'frontend');
-app.use(express.static(frontendPath));
+const frontendPath = path.join(__dirname, "..", "frontend");
+app.use(express.static(frontendPath)); // Serve static files like CSS, JS, images
 
 // API Routes
 require(path.join(__dirname, 'authRoutes.js'))(app); // This was correct, but the athena one was not. Let's ensure consistency.
-require(path.join(__dirname, 'athenaRoutes.js'))(app);
+const chatRouter = require(path.join(__dirname, 'chatRoutes.js')); // This handles all chat/Athena routes
+app.use('/api', chatRouter);
+
 app.get('/api/data', (req, res) => {
     res.json(studyData);
-});
+}); // This route is fine
 
 // --- Improved Frontend Serving ---
 // All non-API routes should serve the main frontend file
 // This MUST be after all other API and auth routes
 app.get(/^(?!\/api).*/, (req, res) => {
     res.sendFile(path.join(frontendPath, 'index.html'));
-});
+}); // This correctly serves your React/Vue/Angular app
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
@@ -62,4 +65,6 @@ mongoose.connect(process.env.MONGO_URI)
     .catch(err => {
         console.error('MongoDB connection error:', err);
         process.exit(1);
+
+        
     });

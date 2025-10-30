@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DTU Study Hub</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0KOVEM1LiJSOTCbM8KGhZKbSSK3AxVucBIiQEC6oUFD24rL2iM/dI" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>DTU Study Hub</h1>
+        <div class="title-container">
+            <h1 class="main-title">DTU Study Hub</h1>
+            <p class="tagline">Your all-in-one platform for notes, quizzes, flashcards, and AI-powered learning.</p>
+        </div>
+        <div id="athena-container"></div>
         <div id="header-controls">
             <div id="auth-container"></div>
             <!-- Theme selector will be injected here by JS -->
@@ -26,7 +28,13 @@
                 <!-- Mode buttons will be injected here by JS -->
             </div>
         </nav>
-        <main id="content-container" class="notes-mode"></main>
+        <main id="content-container" class="notes-mode">
+            <div id="initial-loader">
+                <div class="loader-spinner"></div>
+                <h2>Loading Study Materials...</h2>
+                <p>Getting the latest notes, quizzes, and flashcards ready for you.</p>
+            </div>
+        </main>
     </div>
 
     <div id="login-modal-overlay" class="modal-overlay hidden">

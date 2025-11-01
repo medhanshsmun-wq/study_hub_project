@@ -35,25 +35,47 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Serve the frontend static files
-const frontendPath = path.join(__dirname, "..", "frontend");
-app.use(express.static(frontendPath)); // Serve static files like CSS, JS, images
 
-// API Routes
-require(path.join(__dirname, 'authRoutes.js'))(app); // This was correct, but the athena one was not. Let's ensure consistency.
-const chatRouter = require(path.join(__dirname, 'chatRoutes.js')); // This handles all chat/Athena routes
-app.use('/api', chatRouter);
+// --- API Router Setup ---
+const apiRouter = express.Router();
 
-app.get('/api/data', (req, res) => {
+// Register auth routes on the apiRouter first
+const authRouter = require(path.join(__dirname, 'authRoutes.js'));
+apiRouter.use(authRouter);
+
+// Register chat routes on the apiRouter
+const chatRouter = require(path.join(__dirname, 'chatRoutes.js'));
+apiRouter.use(chatRouter); // chatRouter paths are relative to the mount point
+
+apiRouter.get('/data', (req, res) => {
     res.json(studyData);
-}); // This route is fine
+});
 
-// --- Improved Frontend Serving ---
-// All non-API routes should serve the main frontend file
-// This MUST be after all other API and auth routes
+// Health endpoint: reports whether Gemini API key and model are configured.
+// This endpoint does NOT call the external API and is safe to use for configuration checks.
+apiRouter.get('/health', (req, res) => {
+    res.json({
+        ok: true,
+        geminiKeyPresent: !!process.env.GOOGLE_API_KEY,
+        geminiModel: process.env.GEMINI_MODEL || 'gemini-2.5-flash',
+        mongoConnected: mongoose.connection.readyState === 1
+    });
+});
+
+// Mount the consolidated API router
+app.use('/api', apiRouter);
+
+// --- Frontend Serving (MUST be after API routes) ---
+const frontendPath = path.join(__dirname, "..", "frontend");
+
+// 1. Serve static files like script.js, style.css, and images from the 'frontend' directory.
+app.use(express.static(frontendPath));
+
+// 2. For any other GET request that is not an API call, serve the main index.html file.
+// This is the catch-all for client-side routing in a Single-Page Application.
 app.get(/^(?!\/api).*/, (req, res) => {
     res.sendFile(path.join(frontendPath, 'index.html'));
-}); // This correctly serves your React/Vue/Angular app
+});
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {

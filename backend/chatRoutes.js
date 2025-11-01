@@ -7,7 +7,7 @@ const {
   listUserChats,
   renameChat,
   deleteChat
-} = require('./controllers/chatController'); // Assuming this is the correct path
+} = require('./chatController.js');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 

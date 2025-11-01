@@ -1,7 +1,12 @@
 const Chat = require("./Chat.js");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+// Initialize the Google Generative AI client with the GOOGLE API key.
+// Allow the model name to be overridden via GEMINI_MODEL env var (useful for switching between versions).
+if (!process.env.GOOGLE_API_KEY) {
+  console.warn('GOOGLE_API_KEY is not set. Generative AI calls will fail until you provide a valid key in your environment.');
+}
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
 /**
  * POST /api/new-chat
@@ -34,8 +39,16 @@ async function createNewChat(req, res) {
  * Handles a new message in an existing chat session.
  */
 async function handleChat(req, res) {
-  const userId = req.user.id;
+  // Defensive: req.user may be undefined if authentication hasn't been established properly.
+  const userId = req.user && req.user.id;
   const { chatId, userMessage } = req.body;
+
+  console.log('handleChat called', { userId, chatId: chatId || null, hasFile: !!req.file });
+
+  if (!userId) {
+    console.warn('handleChat: missing req.user - user not authenticated');
+    return res.status(401).json({ error: 'User not authenticated' });
+  }
 
   if (!chatId || !userMessage) {
     return res.status(400).json({ error: "Chat ID and user message are required." });
@@ -65,7 +78,9 @@ async function handleChat(req, res) {
       parts: [{ text: msg.content }]
     }));
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+    // Allow selecting the model via env var; default to gemini-2.5-flash which is commonly used
+    const modelName = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+    const model = genAI.getGenerativeModel({ model: modelName });
     const chatSession = model.startChat({ history });
 
     // Prepare the prompt parts, including the file if it exists
@@ -74,9 +89,20 @@ async function handleChat(req, res) {
       const filePart = fileToGenerativePart(req.file);
       promptParts.push(filePart);
     }
-    const result = await chatSession.sendMessage(promptParts);
 
-    const aiReply = result.response.text();
+    // Call the generative model. If the external API fails (invalid key, rate limit, etc.),
+    // catch the error and return a friendly fallback reply instead of returning HTTP 500.
+    let aiReply;
+    try {
+      const result = await chatSession.sendMessage(promptParts);
+      aiReply = (result && result.response && typeof result.response.text === 'function') ? result.response.text() : '';
+    } catch (aiError) {
+      // Log detailed error for server-side debugging
+      console.error('Generative AI call failed:', aiError);
+
+      // Friendly fallback so frontend doesn't see a 500 and user still gets a response
+      aiReply = 'Athena is currently unavailable (AI service error). Please try again later.';
+    }
 
     // Save the AI's reply and update the timestamp
     const assistantMessageDoc = chat.messages.create({ role: "assistant", content: aiReply });

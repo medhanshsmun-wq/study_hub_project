@@ -1,7 +1,7 @@
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-// Make sure you have GEMINI_API_KEY in your .env file
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+// Make sure you have GOOGLE_API_KEY in your .env file
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
 module.exports = app => {
   app.post('/api/athena/chat', async (req, res) => {
